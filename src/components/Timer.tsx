@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 
 export function Timer() {
   const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(59);
-  const [seconds, setSeconds] = useState(55);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isHoursVisible, setIsHoursVisible] = useState(false);
   const [isPauseVisible, setIsPauseVisible] = useState(false);
@@ -35,8 +35,6 @@ export function Timer() {
     return () => clearInterval(interval);
   }, [isRunning]);
 
-  
-
   const padWithZero = (number: number) => {
     return number < 10 ? '0' + number : number;
   };
@@ -53,14 +51,24 @@ export function Timer() {
     if (isRunning) {
       setIsRunning(false);
       setIsPauseVisible(false);
-      setIsStartVisible(true)
+      setIsStartVisible(true);
     }
+  };
+
+  const stopTimer = () => {
+    setHours(0);
+    setMinutes(0);
+    setSeconds(0);
+    setIsHoursVisible(false);
+    setIsRunning(false);
+    setIsPauseVisible(false);
+    setIsStartVisible(true);
   };
 
   const toggleButtons = (element: number | boolean) => {
     return element ? '' : 'hidden';
   };
-  
+
   return (
     <div className="m-auto flex w-full flex-col items-center gap-4">
       {/* <---Timer---> */}
@@ -76,7 +84,7 @@ export function Timer() {
         <button onClick={pauseTimer} className={toggleButtons(isPauseVisible)}>
           <FaPause className="fill-zinc-400 transition duration-300 hover:fill-zinc-800" />
         </button>
-        <button>
+        <button onClick={stopTimer}>
           <FaStop className="fill-zinc-400 transition duration-300 hover:fill-zinc-800" />
         </button>
       </div>
