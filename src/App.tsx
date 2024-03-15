@@ -1,9 +1,11 @@
+import { Header } from './components/Header';
+
 export function App() {
   return (
-    <div>
-      <h1>App</h1>
-      <h2>App</h2>
-      <h3>App</h3>
+    <div className="grid h-screen w-full place-items-center p-8 antialiased">
+      <div className="w-full max-w-[1080px] rounded-md border p-8">
+        <Header />
+      </div>
     </div>
   );
 }
