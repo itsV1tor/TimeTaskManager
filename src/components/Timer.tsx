@@ -3,9 +3,15 @@ import { useEffect, useState, useContext } from 'react';
 import { AppContext } from '../contexts/AppContext';
 import { AppContextType } from '../contexts/AppContext';
 
+import { PadWithZero } from '../utils/PadWithZero';
+import { ToggleVisibility } from '../utils/ToggleVisibility';
+
 export function Timer() {
-  const { hours, minutes, seconds, setHours, setMinutes, setSeconds }: AppContextType = useContext(AppContext);
+  const { time, setTime, getTime, setGetTime }: AppContextType = useContext(AppContext);
   const [isRunning, setIsRunning] = useState(false);
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(59);
+  const [seconds, setSeconds] = useState(55);
   const [isHoursVisible, setIsHoursVisible] = useState(false);
   const [isPauseVisible, setIsPauseVisible] = useState(false);
   const [isStartVisible, setIsStartVisible] = useState(true);
@@ -35,9 +41,7 @@ export function Timer() {
     return () => clearInterval(interval);
   }, [isRunning]);
 
-  const padWithZero = (number: number) => {
-    return number < 10 ? '0' + number : number;
-  };
+  
 
   const startTimer = () => {
     if (!isRunning) {
@@ -56,32 +60,38 @@ export function Timer() {
   };
 
   const stopTimer = () => {
+    setGetTime(true);
+    setTime(
+      (time) =>
+        (time = {
+          hours,
+          minutes,
+          seconds,
+        }),
+    );
     setHours(0);
     setMinutes(0);
     setSeconds(0);
+
     setIsHoursVisible(false);
     setIsRunning(false);
     setIsPauseVisible(false);
     setIsStartVisible(true);
   };
 
-  const toggleButtons = (element: number | boolean) => {
-    return element ? '' : 'hidden';
-  };
-
   return (
     <div className="m-auto flex w-full flex-col items-center gap-4">
       {/* <---Timer---> */}
       <p className="text-center text-5xl font-medium text-zinc-800">
-        <span className={toggleButtons(isHoursVisible)}>{padWithZero(hours)}:</span>
-        <span>{padWithZero(minutes)}</span>:<span>{padWithZero(seconds)}</span>
+        <span className={ToggleVisibility(isHoursVisible)}>{PadWithZero(hours)}:</span>
+        <span>{PadWithZero(minutes)}</span>:<span>{PadWithZero(seconds)}</span>
       </p>
       {/* <---Timer controllers---> */}
       <div className="flex items-center gap-8">
-        <button onClick={startTimer} className={toggleButtons(isStartVisible)}>
+        <button onClick={startTimer} className={ToggleVisibility(isStartVisible)}>
           <FaPlay className="fill-zinc-400 transition duration-300 hover:fill-zinc-800" />
         </button>
-        <button onClick={pauseTimer} className={toggleButtons(isPauseVisible)}>
+        <button onClick={pauseTimer} className={ToggleVisibility(isPauseVisible)}>
           <FaPause className="fill-zinc-400 transition duration-300 hover:fill-zinc-800" />
         </button>
         <button onClick={stopTimer}>

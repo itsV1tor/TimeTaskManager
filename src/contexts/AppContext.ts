@@ -1,21 +1,25 @@
 import { createContext } from 'react';
 
 export interface AppContextType {
-  hours: number;
-  setHours: React.Dispatch<React.SetStateAction<number>>;
-  minutes: number;
-  setMinutes: React.Dispatch<React.SetStateAction<number>>;
-  seconds: number;
-  setSeconds: React.Dispatch<React.SetStateAction<number>>;
+  time: {
+    hours: number;
+    minutes: number;
+    seconds: number;
+  };
+  setTime: React.Dispatch<React.SetStateAction<{hours: number, minutes: number, seconds: number}>>;
+  getTime: boolean;
+  setGetTime: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const initialContextValue: AppContextType = {
-  hours: 0,
-  setHours: () => {},
-  minutes: 0,
-  setMinutes: () => {},
-  seconds: 0,
-  setSeconds: () => {},
+  time: {
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  },
+  setTime: () => {},
+  getTime: false,
+  setGetTime: () => {}
 };
 
 export const AppContext = createContext<AppContextType>(initialContextValue);
