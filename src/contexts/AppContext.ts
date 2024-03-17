@@ -9,6 +9,10 @@ export interface AppContextType {
   setTime: React.Dispatch<React.SetStateAction<{hours: number, minutes: number, seconds: number}>>;
   getTime: boolean;
   setGetTime: React.Dispatch<React.SetStateAction<boolean>>;
+  inputTitle: string;
+  setInputTitle: React.Dispatch<React.SetStateAction<string>>;
+  inputDescription: string;
+  setInputDescription: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const initialContextValue: AppContextType = {
@@ -19,7 +23,11 @@ const initialContextValue: AppContextType = {
   },
   setTime: () => {},
   getTime: false,
-  setGetTime: () => {}
+  setGetTime: () => {},
+  inputTitle: '',
+  setInputTitle: () => {},
+  inputDescription: '',
+  setInputDescription: () => {},
 };
 
 export const AppContext = createContext<AppContextType>(initialContextValue);

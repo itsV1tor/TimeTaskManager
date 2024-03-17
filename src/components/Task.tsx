@@ -3,16 +3,13 @@ import { AppContext, AppContextType } from '../contexts/AppContext';
 import { PadWithZero } from '../utils/PadWithZero';
 import { ToggleVisibility } from '../utils/ToggleVisibility';
 
-interface TaskPropsType {
-  title: string;
-  totalTime: string;
-  description: string;
-}
-
-export function Task({ title, totalTime, description }: TaskPropsType) {
-  const { time, setTime, getTime, setGetTime }: AppContextType = useContext(AppContext);
+export function Task() {
+  const { time, setTime, getTime, setGetTime, inputTitle, inputDescription }: AppContextType =
+    useContext(AppContext);
   const [spentTime, setSpentTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [isHoursVisible, setIsHoursVisible] = useState(false);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
   useEffect(() => {
     if (getTime) {
@@ -24,6 +21,8 @@ export function Task({ title, totalTime, description }: TaskPropsType) {
           }
           return (isHoursVisible = true);
         });
+        setTitle(inputTitle);
+        setDescription(inputDescription);
         return spentTime;
       });
       setTime(

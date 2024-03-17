@@ -7,11 +7,11 @@ import { PadWithZero } from '../utils/PadWithZero';
 import { ToggleVisibility } from '../utils/ToggleVisibility';
 
 export function Timer() {
-  const { time, setTime, getTime, setGetTime }: AppContextType = useContext(AppContext);
+  const { setTime, setGetTime }: AppContextType = useContext(AppContext);
   const [isRunning, setIsRunning] = useState(false);
   const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(59);
-  const [seconds, setSeconds] = useState(55);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
   const [isHoursVisible, setIsHoursVisible] = useState(false);
   const [isPauseVisible, setIsPauseVisible] = useState(false);
   const [isStartVisible, setIsStartVisible] = useState(true);
@@ -63,11 +63,11 @@ export function Timer() {
     setGetTime(true);
     setTime(
       (time) =>
-        (time = {
+        time = {
           hours,
           minutes,
           seconds,
-        }),
+        },
     );
     setHours(0);
     setMinutes(0);
