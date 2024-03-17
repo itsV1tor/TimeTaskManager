@@ -1,10 +1,10 @@
 import { FaPlay, FaPause, FaStop } from 'react-icons/fa';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { AppContext } from '../contexts/AppContext';
+import { AppContextType } from '../contexts/AppContext';
 
 export function Timer() {
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
+  const { hours, minutes, seconds, setHours, setMinutes, setSeconds }: AppContextType = useContext(AppContext);
   const [isRunning, setIsRunning] = useState(false);
   const [isHoursVisible, setIsHoursVisible] = useState(false);
   const [isPauseVisible, setIsPauseVisible] = useState(false);
@@ -21,7 +21,7 @@ export function Timer() {
               if (minutes >= 59) {
                 setIsHoursVisible(true);
                 setMinutes((minutes) => (minutes = 0));
-                setHours((hours) => {
+                setHours((hours: number) => {
                   return hours + 1;
                 });
               }
